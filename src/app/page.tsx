@@ -284,7 +284,7 @@ export default function Home() {
               label="LinkedIn"
               external
             />
-            <SidebarLink href="/cv.pdf" icon={FileDown} label="Download CV" />
+            <SidebarLink href="/CMMV_CV.pdf" icon={FileDown} label="Download CV" />
           </nav>
 
           <p
