@@ -9,21 +9,45 @@ import {
 
 /* ─── Content data ────────────────────────── */
 
-const experience = {
-  role: "Research Software Developer",
-  org: "Instituto Via Dise\u00f1o",
-  location: "Quer\u00e9taro, M\u00e9xico",
-  date: "Feb 2025 \u2013 May 2025",
-  description: [
-    "Engineered a constraint satisfaction scheduling",
-    "algorithm for a campus of 150+ active users.",
-    "Optimized PostgreSQL indexing strategies, reducing",
-    "query latency by 40% during complex constraint",
-    "evaluations. Integrated results into a real-time",
-    "React visualization platform.",
-  ].join(" "),
-  tags: ["PostgreSQL", "CSP Algorithms", "React"],
-};
+interface Experience {
+  role: string;
+  org: string;
+  location: string;
+  date: string;
+  description: string;
+  tags: string[];
+}
+
+const experiences: Experience[] = [
+  {
+    role: "Quantitative Researcher Intern",
+    org: "Moreton Capital Partners",
+    location: "Mexico City, M\u00e9xico",
+    date: "April 2026 \u2013 TBD",
+    description: [
+      "Incoming intern focusing on systematic commodity",
+      "strategies and multi-horizon signal blending.",
+      "Developing regime-aware portfolio optimization",
+      "frameworks and risk-parity allocation models.",
+    ].join(" "),
+    tags: ["Portfolio Optimization", "Signal Blending", "Risk-Parity"],
+  },
+  {
+    role: "Research Software Developer",
+    org: "Instituto Via Dise\u00f1o",
+    location: "Quer\u00e9taro, M\u00e9xico",
+    date: "Feb 2025 \u2013 May 2025",
+    description: [
+      "Engineered a constraint satisfaction scheduling",
+      "algorithm for a campus of 150+ active users.",
+      "Optimized PostgreSQL indexing strategies, reducing",
+      "query latency by 40% during complex constraint",
+      "evaluations. Integrated results into a real-time",
+      "React visualization platform.",
+    ].join(" "),
+    tags: ["PostgreSQL", "CSP Algorithms", "React"],
+  },
+];
 
 interface Metric {
   label: string;
@@ -43,7 +67,7 @@ interface Project {
 const projects: Project[] = [
   {
     title: "Hybrid Asset Pricing: LLM Sentiment & MLP Noise Reduction",
-    date: "Nov 2025 \u2013 Present",
+    date: "Dec 2025 \u2013 Present",
     status: "Working Paper",
     abstract: [
       "A comparative study challenging static lexicon-based",
@@ -62,6 +86,26 @@ const projects: Project[] = [
       { label: "Alpha",         value: "Seeking...",     desc: "The eternal pursuit" }
     ],
     tags: ["Python", "PyTorch", "LLMs", "Hypothesis Testing"],
+  },
+  {
+    title: "Hierarchical Commodity Portfolio Construction",
+    date: "Mar 2026",
+    abstract: [
+      "Developed a two-stage backtesting engine for 10 commodity",
+      "sectors over 162 weekly periods using SLSQP min-variance",
+      "optimization, achieving max 7.7% annual volatility. Enforced",
+      "KKT optimality for stable weight constraints and mplemented",
+      "Ledoit-Wolf covariance shrinkage and a Stage A",
+      "signal blending / Stage B cross-sector allocation pipeline",
+      "that reduced Max Drawdown by 15%.",
+    ].join(" "),
+    metrics: [
+      { label: "Adj. Sharpe", value: "4.02", desc: "Lo (2002)" },
+      { label: "Calmar Ratio", value: "2.1" },
+      { label: "Ann. Volatility", value: "\u2264 7.7%", desc: "Max" },
+      { label: "Ann. Turnover", value: " 83%"},
+    ],
+    tags: ["Python", "SLSQP", "Ledoit-Wolf", "Portfolio Optimization", "Backtesting"],
   },
   {
     title: "AquaHub: Predictive Drought Modeling & Crowdsourcing",
@@ -259,11 +303,8 @@ export default function Home() {
               "mt-2 font-mono text-[11px] " + "text-ink/35 leading-relaxed"
             }
           >
-            Financial Econometrics
+            Quantitative Researcher
             <br />
-            Machine Learning
-            <br />
-            Quantitative methods
           </p>
 
           <nav className="mt-8 flex flex-col gap-3">
@@ -302,46 +343,50 @@ export default function Home() {
           <section>
             <SectionHeading>Research Experience</SectionHeading>
 
-            <article>
-              <div
-                className={
-                  "flex flex-col sm:flex-row " +
-                  "sm:items-baseline sm:justify-between gap-1"
-                }
-              >
-                <h3 className="font-serif text-lg font-semibold">
-                  {experience.role}
-                </h3>
-                <span
-                  className={
-                    "font-mono text-[11px] text-ink/40 " +
-                    "flex items-center gap-1.5 shrink-0"
-                  }
-                >
-                  <Calendar size={11} strokeWidth={1.5} />
-                  {experience.date}
-                </span>
-              </div>
+            <div className="flex flex-col gap-10">
+              {experiences.map((exp) => (
+                <article key={exp.org + exp.date}>
+                  <div
+                    className={
+                      "flex flex-col sm:flex-row " +
+                      "sm:items-baseline sm:justify-between gap-1"
+                    }
+                  >
+                    <h3 className="font-serif text-lg font-semibold">
+                      {exp.role}
+                    </h3>
+                    <span
+                      className={
+                        "font-mono text-[11px] text-ink/40 " +
+                        "flex items-center gap-1.5 shrink-0"
+                      }
+                    >
+                      <Calendar size={11} strokeWidth={1.5} />
+                      {exp.date}
+                    </span>
+                  </div>
 
-              <p
-                className={
-                  "mt-1 text-sm text-ink/40 " + "flex items-center gap-1.5"
-                }
-              >
-                <MapPin size={12} strokeWidth={1.5} />
-                {experience.org} &mdash; {experience.location}
-              </p>
+                  <p
+                    className={
+                      "mt-1 text-sm text-ink/40 " + "flex items-center gap-1.5"
+                    }
+                  >
+                    <MapPin size={12} strokeWidth={1.5} />
+                    {exp.org} &mdash; {exp.location}
+                  </p>
 
-              <p className={"mt-4 text-[15px] leading-relaxed text-ink/70"}>
-                {experience.description}
-              </p>
+                  <p className={"mt-4 text-[15px] leading-relaxed text-ink/70"}>
+                    {exp.description}
+                  </p>
 
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {experience.tags.map((t) => (
-                  <Pill key={t}>{t}</Pill>
-                ))}
-              </div>
-            </article>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {exp.tags.map((t) => (
+                      <Pill key={t}>{t}</Pill>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
           </section>
 
           {/* ── Selected Research & Projects ── */}
