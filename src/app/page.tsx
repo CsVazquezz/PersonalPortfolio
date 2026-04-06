@@ -12,8 +12,9 @@ import {
 interface Experience {
   role: string;
   org: string;
-  location: string;
+  location?: string;
   date: string;
+  status?: string;
   description: string;
   tags: string[];
 }
@@ -23,14 +24,35 @@ const experiences: Experience[] = [
     role: "Quantitative Researcher Intern",
     org: "Moreton Capital Partners",
     location: "Mexico City, M\u00e9xico",
-    date: "April 2026 \u2013 TBD",
+    date: "Mar 2026 \u2013 Present",
     description: [
-      "Incoming intern focusing on systematic commodity",
-      "strategies and multi-horizon signal blending.",
-      "Developing regime-aware portfolio optimization",
-      "frameworks and risk-parity allocation models.",
+      "Engineering systematic research workflows for",
+      "multi-horizon signal blending within commodity markets.",
+      "Developing regime-aware portfolio optimization frameworks",
+      "and risk-parity allocation models to navigate volatility,",
+      "and architecting robust data engineering pipelines to",
+      "ingest and process high-dimensional financial datasets",
+      "for alpha extraction.",
     ].join(" "),
     tags: ["Portfolio Optimization", "Signal Blending", "Risk-Parity"],
+  },
+  {
+    role: "Lead Researcher - Hybrid Asset Pricing Architecture",
+    org: "Monterrey Institute of Technology",
+    location: "Quer\u00e9taro, M\u00e9xico", 
+    date: "Dec 2025 \u2013 Present",
+    status: "Working Paper",
+    description: [
+      "Engineering a novel data-cleaning and engineering",
+      "architecture utilizing a Multilayer Perceptron (MLP) to",
+      "filter stochastic noise from financial text prior to",
+      "processing by LLM or BERT-based systems. Designing",
+      "high-fidelity preprocessing layers to isolate alpha signals",
+      "in high-volatility asset classes and developing a hybrid",
+      "Bi-LSTM architecture to integrate filtered sentiment scores",
+      "into predictive pricing models.",
+    ].join(" "),
+    tags: ["Python", "PyTorch", "Bi-LSTM", "NLP", "Alpha Research"],
   },
   {
     role: "Research Software Developer",
@@ -66,28 +88,6 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Hybrid Asset Pricing: LLM Sentiment & MLP Noise Reduction",
-    date: "Dec 2025 \u2013 Present",
-    status: "Working Paper",
-    abstract: [
-      "A comparative study challenging static lexicon-based",
-      "models (VADER) in high-volatility markets. The",
-      "proposed architecture utilizes Large Language Models",
-      "(LLMs) to extract context-aware sentiment, coupled",
-      "with a Multilayer Perceptron (MLP) to filter",
-      "stochastic noise. The hypothesis focuses on isolating",
-      "high-fidelity alpha signals that traditional linear",
-      "regression models miss.",
-    ].join(" "),
-    metrics: [
-      { label: "Sharpe Ratio",  value: "Computing...",   desc: "Waiting for valid backtest" },
-      { label: "P-Value",       value: "< 0.05",         desc: "Target Significance" },
-      { label: "Overfitting",   value: "0%",             desc: "Strictly Enforced" },
-      { label: "Alpha",         value: "Seeking...",     desc: "The eternal pursuit" }
-    ],
-    tags: ["Python", "PyTorch", "LLMs", "Hypothesis Testing"],
-  },
-  {
     title: "Hierarchical Commodity Portfolio Construction",
     date: "Mar 2026",
     abstract: [
@@ -106,6 +106,26 @@ const projects: Project[] = [
       { label: "Ann. Turnover", value: " 83%"},
     ],
     tags: ["Python", "SLSQP", "Ledoit-Wolf", "Portfolio Optimization", "Backtesting"],
+  },
+  {
+    title: "OrbitGrow: Martian Plant Health Monitoring",
+    date: "Mar 2026",
+    status: "Syngenta @ START Hack \u2014 Top 5 Finalist (30 teams)",
+    abstract: [
+      "Engineered a real-time computer vision system to monitor",
+      "crop health in Martian greenhouses, utilizing AWS SageMaker",
+      "for autonomous stress detection. Developed a multi-modal",
+      "data pipeline to process environmental telemetry and spectral",
+      "imagery, enabling automated nutrient deficiency diagnosis",
+      "in extraterrestrial environments.",
+    ].join(" "),
+    metrics: [
+      { label: "Rank", value: "Top 5", desc: "out of 30 teams" },
+      { label: "Inference", value: "Real-time", desc: "Stress Detection" },
+      { label: "Platform", value: "AWS SageMaker" },
+      { label: "Data", value: "Multi-modal", desc: "Telemetry + Spectral" },
+    ],
+    tags: ["Computer Vision", "AWS SageMaker", "Multi-Modal Pipelines", "Python"],
   },
   {
     title: "AquaHub: Predictive Drought Modeling & Crowdsourcing",
@@ -127,14 +147,15 @@ const projects: Project[] = [
     tags: ["Systemic Risk Modeling", "Data Pipelines", "Crowdsourcing"],
   },
   {
-    title: "Bloomly: Multi-Spectral Satellite Data Analysis",
+    title: "Bloomly: Global Bloom Detection System",
     date: "Oct 2025",
+    status: "@ NASA Space Apps Hack",
     abstract: [
       "Engineered a LightGBM-based predictive model",
       "leveraging multi-spectral satellite imagery (GEE)",
       "and NASA POWER meteorological data. Conducted",
       "rigorous dimensionality reduction across 44 distinct",
-      "ecological indicators to classify global algal bloom",
+      "ecological indicators to classify global bloom",
       "patterns with high precision (AUC/F1 validation).",
     ].join(" "),
     tags: ["Python", "LightGBM", "Remote Sensing (GEE)"],
@@ -205,7 +226,7 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
     <h2
       className={
-        "font-serif text-xs uppercase tracking-[0.2em] " + "text-ink/40 mb-10"
+        "font-serif text-sm uppercase tracking-[0.2em] " + "text-ink/40 mb-10"
       }
     >
       {children}
@@ -371,9 +392,15 @@ export default function Home() {
                       "mt-1 text-sm text-ink/40 " + "flex items-center gap-1.5"
                     }
                   >
-                    <MapPin size={12} strokeWidth={1.5} />
-                    {exp.org} &mdash; {exp.location}
+                    {exp.location && <MapPin size={12} strokeWidth={1.5} />}
+                    {exp.org}
+                    {exp.location && <> &mdash; {exp.location}</>}
                   </p>
+                  {exp.status && (
+                    <p className="font-mono text-[11px] text-ink/40 mt-0.5">
+                      {exp.status}
+                    </p>
+                  )}
 
                   <p className={"mt-4 text-[15px] leading-relaxed text-ink/70"}>
                     {exp.description}
