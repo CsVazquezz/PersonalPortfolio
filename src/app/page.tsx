@@ -11,7 +11,7 @@ import {
 
 interface Experience {
   role: string;
-  org: string;
+  org?: string;
   location?: string;
   date: string;
   status?: string;
@@ -26,48 +26,46 @@ const experiences: Experience[] = [
     location: "Mexico City, M\u00e9xico",
     date: "Mar 2026 \u2013 Present",
     description: [
-      "Engineering systematic research workflows for",
-      "multi-horizon signal blending within commodity markets.",
-      "Developing regime-aware portfolio optimization frameworks",
-      "and risk-parity allocation models to navigate volatility,",
-      "and architecting robust data engineering pipelines to",
-      "ingest and process high-dimensional financial datasets",
-      "for alpha extraction.",
+      "Architecting multi-agent heuristic systems operating as non-linear layers atop",
+      "production-level deterministic models to optimize systematic commodity strategies",
+      "and signal blending. Formulating mathematically rigorous meta-models to map",
+      "high-dimensional financial datasets, enforcing statistical constraints and regularizers",
+      "to ensure structural stability and mitigate alpha decay. Bridging stochastic machine",
+      "learning outputs with classical convex optimization frameworks, integrating agentic",
+      "signals into multi-horizon risk-parity and regime-aware allocation models.",
     ].join(" "),
-    tags: ["Portfolio Optimization", "Signal Blending", "Risk-Parity"],
+    tags: ["Multi-Agent Systems", "Convex Optimization", "Signal Blending", "Risk-Parity", "Commodity Strategies"],
   },
   {
-    role: "Lead Researcher - Hybrid Asset Pricing Architecture",
-    org: "Monterrey Institute of Technology",
-    location: "Quer\u00e9taro, M\u00e9xico", 
+    role: "Lead Researcher \u2014 Model-Agnostic Infrastructure for Unstructured Financial Text",
     date: "Dec 2025 \u2013 Present",
     status: "Working Paper",
     description: [
-      "Engineering a novel data-cleaning and engineering",
-      "architecture utilizing a Multilayer Perceptron (MLP) to",
-      "filter stochastic noise from financial text prior to",
-      "processing by LLM or BERT-based systems. Designing",
-      "high-fidelity preprocessing layers to isolate alpha signals",
-      "in high-volatility asset classes and developing a hybrid",
-      "Bi-LSTM architecture to integrate filtered sentiment scores",
-      "into predictive pricing models.",
+      "Formalizing an end-to-end, model-agnostic architectural blueprint for processing",
+      "high-dimensional, unstructured financial text, ensuring structural invariance against",
+      "shifting baseline language architectures. Designing a modular data engineering pipeline",
+      "that decouples stochastic noise-filtering mechanics from downstream deep learning",
+      "systems, optimizing input embedding spaces to ensure future-proof compatibility.",
+      "Formulating a novel, domain-specific reward function and objective metric that maps",
+      "linguistic signal extraction directly to portfolio optimization, independent of the",
+      "underlying transformer or LLM paradigm.",
     ].join(" "),
-    tags: ["Python", "PyTorch", "Bi-LSTM", "NLP", "Alpha Research"],
+    tags: ["Python", "PyTorch", "NLP", "Alpha Research", "LLM", "Portfolio Optimization"],
   },
   {
     role: "Research Software Developer",
-    org: "Instituto Via Dise\u00f1o",
-    location: "Quer\u00e9taro, M\u00e9xico",
-    date: "Feb 2025 \u2013 May 2025",
+    org: "Instituto Via Diseño",
+    location: "Querétaro, México",
+    date: "Feb 2025 – May 2025",
     description: [
-      "Engineered a constraint satisfaction scheduling",
-      "algorithm for a campus of 150+ active users.",
-      "Optimized PostgreSQL indexing strategies, reducing",
-      "query latency by 40% during complex constraint",
-      "evaluations. Integrated results into a real-time",
-      "React visualization platform.",
+      "Architected a constraint satisfaction scheduling system for a 150+ user campus",
+      "environment, formalizing combinatorial resource allocation as a CSP and applying",
+      "backtracking search with constraint propagation to guarantee feasibility under",
+      "competing institutional constraints. Engineered PostgreSQL indexing strategies that",
+      "reduced query latency by 40% under high-cardinality constraint evaluations, and",
+      "surfaced scheduling state through a real-time React visualization layer.",
     ].join(" "),
-    tags: ["PostgreSQL", "CSP Algorithms", "React"],
+    tags: ["PostgreSQL", "CSP Algorithms", "React", "Combinatorial Optimization"],
   },
 ];
 
@@ -387,15 +385,17 @@ export default function Home() {
                     </span>
                   </div>
 
-                  <p
-                    className={
-                      "mt-1 text-sm text-ink/40 " + "flex items-center gap-1.5"
-                    }
-                  >
-                    {exp.location && <MapPin size={12} strokeWidth={1.5} />}
-                    {exp.org}
-                    {exp.location && <> &mdash; {exp.location}</>}
-                  </p>
+                  {(exp.org || exp.location) && (
+                    <p
+                      className={
+                        "mt-1 text-sm text-ink/40 " + "flex items-center gap-1.5"
+                      }
+                    >
+                      {exp.location && <MapPin size={12} strokeWidth={1.5} />}
+                      {exp.org}
+                      {exp.location && <> &mdash; {exp.location}</>}
+                    </p>
+                  )}
                   {exp.status && (
                     <p className="font-mono text-[11px] text-ink/40 mt-0.5">
                       {exp.status}
